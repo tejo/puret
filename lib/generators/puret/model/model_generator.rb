@@ -16,6 +16,8 @@ module Puret
       def inject_puret_config_into_model
         inject_into_class model_path, class_name, <<-CONTENT
   puret #{attributes.map { |a| ":%s" % a.name }.join(", ")}
+ accepts_nested_attributes_for :translations, :reject_if => lambda { |attrs| #{attributes.map { |a| "attrs['%s'.blank?" % a.name }.join(" && ")}}
+
     CONTENT
       end
 
