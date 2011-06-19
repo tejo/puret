@@ -61,6 +61,30 @@ module Puret
     end
 
     module InstanceMethods
+
+
+      def find_or_create_translation(locale)
+        locale = locale.to_s
+        (find_translation(locale) || self.translations.new).tap do |t|
+          t.locale = locale
+        end
+      end
+
+
+      def all_translations
+        t = I18n.available_locales.map do |locale|
+          [locale, find_or_create_translation(locale)]
+        end
+        ActiveSupport::OrderedHash[t]
+      end
+
+
+      def find_translation(locale)
+        locale = locale.to_s
+        translations.detect { |t| t.locale == locale }
+      end
+
+
       def puret_default_locale
         return default_locale.to_sym if respond_to?(:default_locale)
         return self.class.default_locale.to_sym if self.class.respond_to?(:default_locale)
