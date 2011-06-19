@@ -6,6 +6,8 @@ Puret is quiet like model_translations http://github.com/janne/model_translation
 
 Puret does not create the translation model dynamically (like model_translations does) but creates the file via generator. Puret wants to leave out as much magic as possible and want to allow customizing every part of your application.
 
+This fork includes some methods ( borrowed from has_translations https://github.com/dmitry/has_translations ) for dealing with nested form attributes
+
 
 == Installation
 
@@ -98,7 +100,7 @@ Keep it simple! Relax.
 
 == Nested forms attributes
 
-This fork include some methods (borrowed from has_translations https://github.com/dmitry/has_translations ) for dealing with nested form attributes
+This fork includes some methods ( borrowed from has_translations https://github.com/dmitry/has_translations ) for dealing with nested form attributes
 
   <%= form_for(@post) do |f| %>
   <% f.object.all_translations.values.each do |translation| %>
