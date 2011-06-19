@@ -54,7 +54,7 @@ You now need to create a migration for the translations table:
   end
   add_index :post_translations, [:post_id, :locale], :unique => true
 
-Thats it!
+
 
 Now you are able to translate values for the attributes :title and :description per locale:
 
@@ -96,10 +96,32 @@ This will create the appropriate migration and configure your Post model to tran
 
 Keep it simple! Relax.
 
+== Nested forms attributes
+
+This version include some methods for deal with nested form attributes
+
+  <%= form_for(@post) do |f| %>
+  <% f.object.all_translations.values.each do |translation| %>
+    <%= f.fields_for :translations, translation do |ft| %>
+      <div class="field">
+        <%= ft.label :title %> <%= translation.locale %> <br />
+        <%= ft.text_field :title %>
+      </div>
+      <div class="field">
+        <%= ft.label :description %> <%= translation.locale %> <br />
+        <%= ft.text_area :description %>
+      </div>
+      <%= ft.hidden_field :locale  %>
+    <% end %>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% end %>
 
 == Diggin deeper
 
-Read the Rdoc documentation at http://rdoc.info/projects/jo/puret.
+Read the original Rdoc documentation at http://rdoc.info/projects/jo/puret.
 
 
 == Bugs and Feedback
