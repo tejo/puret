@@ -27,6 +27,11 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "puret"
+    s.email = "schmidt@netzmerk.com"
+    s.homepage = "http://github.com/jo/puret"
+    s.description = "Pure model translations"
+    s.authors = ['Johannes Jorg Schmidt']
+    s.files =  FileList["[A-Z]*(.rdoc)", "{generators,lib}/**/*", "init.rb"]
   end
 
   Jeweler::GemcutterTasks.new
