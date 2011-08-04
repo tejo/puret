@@ -28,6 +28,7 @@ begin
   Jeweler::Tasks.new do |s|
     s.name = "puret"
     s.email = "schmidt@netzmerk.com"
+    s.summary = "Pure model translations"
     s.homepage = "http://github.com/jo/puret"
     s.description = "Pure model translations"
     s.authors = ['Johannes Jorg Schmidt']
