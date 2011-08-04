@@ -27,7 +27,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "puret"
-    s.version = Puret::VERSION
+    #s.version = Puret::VERSION
     s.summary = "Pure model translations"
     s.email = "schmidt@netzmerk.com"
     s.homepage = "http://github.com/jo/puret"
