@@ -122,4 +122,14 @@ class PuretTest < ActiveSupport::TestCase
   test 'model should provide attribute_before_type_cast' do
     assert_equal Post.first.title, Post.first.title_before_type_cast
   end
+
+  test 'should return all translations for nested forms' do
+    post = Post.new
+    post.title = 'English title'
+    I18n.locale = :it
+    post.title = 'Titolo italiano'
+    post.save
+    assert_equal post.all_translations.class, ActiveSupport::OrderedHash 
+  end
+
 end
