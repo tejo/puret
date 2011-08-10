@@ -21,6 +21,16 @@ module Puret
         make_it_puret! unless included_modules.include?(InstanceMethods)
 
         attributes.each do |attribute|
+          #dynamic finders 
+          (class << self; self; end).class_eval do
+            define_method "find_by_#{attribute}" do |value|
+              joins(:translations).where("#{self.to_s}_translations.locale" => I18n.locale, "#{self.to_s}_translations.#{attribute}" => "#{value}").first
+            end
+            define_method "find_all_by_#{attribute}" do |value|
+              joins(:translations).where("#{self.to_s}_translations.locale" => I18n.locale, "#{self.to_s}_translations.#{attribute}" => "#{value}")
+            end
+          end
+
           # attribute setter
           define_method "#{attribute}=" do |value|
             puret_attributes[I18n.locale][attribute] = value
@@ -61,7 +71,7 @@ module Puret
     end
 
     module InstanceMethods
-
+      
 
       def find_or_create_translation(locale)
         locale = locale.to_s

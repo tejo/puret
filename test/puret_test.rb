@@ -132,4 +132,18 @@ class PuretTest < ActiveSupport::TestCase
     assert_equal post.all_translations.class, ActiveSupport::OrderedHash 
   end
 
+  test 'should be able to run dynamic finder on translated attributes' do
+    post = Post.new
+    post.title = 'English title'
+    I18n.locale = :it
+    post.title = 'Titolo italiano'
+    post.save
+
+    assert_equal Post.find_by_title('Titolo italiano').class, Post
+    I18n.locale = :en
+    assert_operator Post.find_all_by_title('English title').count, :>=, 1
+
+
+  end
+
 end
