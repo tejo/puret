@@ -70,6 +70,22 @@ Now you are able to translate values for the attributes :title and :description 
   I18n.locale = :de
   post.title #=> Puret rockt wirklich!
 
+This fork let you do also:
+
+  post.title_en = 'Puret really rocks!'
+  post.title_de = 'Puret rockt wirklich!'
+
+  post.title_en #=> Puret really rocks!
+  post.title_en #=> Puret rockt wirklich!
+
+I've also added dynamic finders:
+
+  I18n.locale = :en
+  Post.find_by_title('Puret really rocks!')
+  I18n.locale = :it
+  Post.find_by_title('Puret spacca il qulo ai passeri in volo!')
+
+
 
 == Translation lookup fallback
 
