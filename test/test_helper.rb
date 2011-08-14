@@ -8,6 +8,8 @@ require 'logger'
 ActiveRecord::Base.logger = Logger.new(nil)
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 
+I18n.available_locales = [:it, :en, :sv, :de]
+
 def setup_db
   ActiveRecord::Migration.verbose = false
   load "schema.rb"

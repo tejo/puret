@@ -145,5 +145,15 @@ class PuretTest < ActiveSupport::TestCase
 
 
   end
+  
+  test 'should be able to set and get attributes by spcecify locale translation' do
+    post = Post.new
+    post.title_en = 'English title'
+    post.title_it = 'Titolo italiano'
+    post.save
+
+    assert_equal post.title_en,  'English title'
+    assert_equal post.title_it,   'Titolo italiano'
+  end
 
 end

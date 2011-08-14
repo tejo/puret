@@ -36,6 +36,18 @@ module Puret
             puret_attributes[I18n.locale][attribute] = value
           end
 
+          
+          I18n.available_locales.each do |locale|
+
+            define_method "#{attribute}_#{locale}=" do |value|
+              puret_attributes[locale][attribute] = value
+            end
+
+            define_method "#{attribute}_#{locale}" do 
+              return puret_attributes[locale][attribute] if puret_attributes[locale][attribute]
+            end
+          end
+
           # attribute getter
           define_method attribute do
             # return previously setted attributes if present
