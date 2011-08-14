@@ -8,6 +8,13 @@ Puret does not create the translation model dynamically (like model_translations
 
 This fork includes some methods ( borrowed from has_translations https://github.com/dmitry/has_translations ) for dealing with nested form attributes
 
+== About this fork
+
+Original puret is awesome out of the box, however I feel the need for:
+
+- ability to edit all translations ad one time with simple_form
+- ability to find a record through a translated attribute (eg: Post.find_by_title)
+- need some convenience methods for setting and getting specific locale attribute (eg: post.title_en = 'Hello')
 
 == Installation
 
@@ -16,9 +23,9 @@ You need configure the puret gem inside your gemfile:
   source 'http://gemcutter.org'
   gem 'puret'
 
-You can also use the latest edge version by specifying the git repository:
+If you want to use this fork:
 
-  gem 'puret', :git => 'git://github.com/jo/puret.git'
+  gem 'puret' , :git => "git://github.com/tejo/puret.git"
 
 Do not forget to run
 
