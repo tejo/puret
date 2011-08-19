@@ -1,6 +1,6 @@
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require File.join(File.dirname(__FILE__), 'lib', 'puret', 'version')
 
 desc 'Default: run unit tests.'
@@ -15,7 +15,7 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'Generate documentation for the puret plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Puret'
   rdoc.options << '--line-numbers' << '--inline-source'
