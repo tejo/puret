@@ -160,4 +160,12 @@ class PuretTest < ActiveSupport::TestCase
     assert_equal p.title_it,  'Tit ita'
   end
 
+  test 'should return nil when a saved record does not have the corresponding locale' do
+    post = Post.new
+    post.title_en = 'Eng title'
+    post.save
+    p = Post.find_by_title('Eng title')
+    assert_nil p.title_it
+  end
+
 end

@@ -37,6 +37,7 @@ module Puret
           end
 
           
+          # attribute setter and getter attributes_<locale>
           I18n.available_locales.each do |locale|
 
             define_method "#{attribute}_#{locale}=" do |value|
@@ -46,7 +47,7 @@ module Puret
             define_method "#{attribute}_#{locale}" do 
               return puret_attributes[locale][attribute] if puret_attributes[locale][attribute]
               return if new_record?
-              translations.where(:locale => locale).first.send(attribute.to_sym) 
+              translations.where(:locale => locale).first.send(attribute.to_sym) rescue nil 
             end
           end
 
