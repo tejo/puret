@@ -45,6 +45,8 @@ module Puret
 
             define_method "#{attribute}_#{locale}" do 
               return puret_attributes[locale][attribute] if puret_attributes[locale][attribute]
+              return if new_record?
+              translations.where(:locale => locale).first.send(attribute.to_sym) 
             end
           end
 

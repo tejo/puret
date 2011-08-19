@@ -148,12 +148,16 @@ class PuretTest < ActiveSupport::TestCase
   
   test 'should be able to set and get attributes by spcecify locale translation' do
     post = Post.new
-    post.title_en = 'English title'
-    post.title_it = 'Titolo italiano'
+    post.title_en = 'Eng title'
+    post.title_it = 'Tit ita'
+    assert_equal post.title_en,  'Eng title'
+    assert_equal post.title_it,  'Tit ita'
     post.save
+    I18n.locale = :en
+    p = Post.find_by_title('Eng title')
 
-    assert_equal post.title_en,  'English title'
-    assert_equal post.title_it,   'Titolo italiano'
+    assert_equal p.title_en,  'Eng title'
+    assert_equal p.title_it,  'Tit ita'
   end
 
 end
