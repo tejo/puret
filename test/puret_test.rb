@@ -142,7 +142,9 @@ class PuretTest < ActiveSupport::TestCase
     assert_equal Post.find_by_title('Titolo italiano').class, Post
     I18n.locale = :en
     assert_operator Post.find_all_by_title('English title').count, :>=, 1
-
+    
+    assert_nil Post.find_by_title('bla')
+    assert Post.find_all_by_title('bla'), []
 
   end
   
