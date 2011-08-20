@@ -24,7 +24,7 @@ module Puret
           #dynamic finders 
           (class << self; self; end).class_eval do
             define_method "find_by_#{attribute}" do |value|
-              joins(:translations).where("#{self.to_s}_translations.locale" => I18n.locale, "#{self.to_s}_translations.#{attribute}" => "#{value}").first
+              self.send("find_all_by_#{attribute}".to_sym, value).first
             end
             define_method "find_all_by_#{attribute}" do |value|
               joins(:translations).where("#{self.to_s}_translations.locale" => I18n.locale, "#{self.to_s}_translations.#{attribute}" => "#{value}")
