@@ -11,6 +11,7 @@ module Puret
         validates_presence_of model, :locale
         validates_uniqueness_of :locale, :scope => "#{model}_id"
       end
+      
 
       # Configure translated attributes.
       # Eg:
@@ -21,27 +22,25 @@ module Puret
         make_it_puret! unless included_modules.include?(InstanceMethods)
 
         attributes.each do |attribute|
+
           #dynamic finders 
           (class << self; self; end).class_eval do
             define_method "find_by_#{attribute}" do |value|
               self.send("find_all_by_#{attribute}".to_sym, value).first
             end
             define_method "find_all_by_#{attribute}" do |value|
-              joins(:translations).where("#{self.to_s}_translations.locale" => I18n.locale, "#{self.to_s}_translations.#{attribute}" => "#{value}")
+              joins(:translations).where("#{self.to_s.tableize.singularize}_translations.locale" => I18n.locale, "#{self.to_s.tableize.singularize}_translations.#{attribute}" => "#{value}")
             end
           end
 
-          # attribute setter
-          define_method "#{attribute}=" do |value|
-            puret_attributes[I18n.locale][attribute] = value
-          end
-
           
-          # attribute setter and getter attributes_<locale>
+          # this make possible to specify getter and setter methods per locale, 
+          # eg: given title attribute you can use getter
+          # as: title_en or title_it and setter as title_en= and title_it=
           I18n.available_locales.each do |locale|
 
             define_method "#{attribute}_#{locale}=" do |value|
-              puret_attributes[locale][attribute] = value
+              set_attribute(attribute,value, locale)
             end
 
             define_method "#{attribute}_#{locale}" do 
@@ -49,6 +48,11 @@ module Puret
               return if new_record?
               translations.where(:locale => locale).first.send(attribute.to_sym) rescue nil 
             end
+          end
+
+          # attribute setter
+          define_method "#{attribute}=" do |value|
+            set_attribute(attribute, value)
           end
 
           # attribute getter
@@ -86,7 +90,10 @@ module Puret
     end
 
     module InstanceMethods
-      
+            
+      def set_attribute(attribute, value, locale = I18n.locale)
+        puret_attributes[locale][attribute] = value
+      end
 
       def find_or_create_translation(locale)
         locale = locale.to_s

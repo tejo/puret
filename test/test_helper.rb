@@ -24,12 +24,9 @@ end
 class Post < ActiveRecord::Base
   puret :title, :text
   validates_presence_of :title
-
-  # def self.find_by_title(title)
-  #   joins(:translations).where('post_translations.title' => "#{title}")
-  # end
 end
 
 class PostTranslation < ActiveRecord::Base
   puret_for :post
 end
+
