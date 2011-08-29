@@ -23,7 +23,7 @@ You need configure the puret gem inside your gemfile:
   source 'http://gemcutter.org'
   gem 'puret'
 
-If you want to use this fork:
+If you want to use this  fork:
 
   gem 'puret' , :git => "git://github.com/tejo/puret.git"
 
