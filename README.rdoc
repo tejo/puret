@@ -12,7 +12,7 @@ This fork includes some methods ( borrowed from has_translations https://github.
 
 Original puret is awesome out of the box, however I feel the need for:
 
-- ability to edit all translations ad one time with simple_form 
+- ability to edit all translations ad one time with nested forms
 - ability to find a record through a translated attribute (eg: Post.find_by_title)
 - need some convenience methods for setting and getting specific locale attribute (eg: post.title_en = 'Hello')
 
